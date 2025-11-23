@@ -25,7 +25,6 @@ app.get('/people/:userId', (req, res) => {
   console.log(req.params)
   let output = peopleTemplate.replaceAll(/{%RESOURCE_TYPE%}/g, 'people')
   output = output.replaceAll(/{%UID%}/g, req.params.userId)
-  output = output.replaceAll(/{%NAME%}/g, req.params.userId)
   res.status(200).end(output)
 })
 
