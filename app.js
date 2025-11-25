@@ -6,6 +6,7 @@ const app = express()
 
 const htmlTemplate = '' + readFileSync('./public/template.html')
 const peopleTemplate = '' + readFileSync('./public/people.html')
+const planetTemplate = '' + readFileSync('./public/planet.html')
 const port = 3000
 
 app.use(express.static('./public'))
@@ -16,14 +17,23 @@ app.get('/planets', (req, res) => {
   res.status(200).end(output)
 })
 
+app.get('/planets/:planetId', (req, res) => {
+  const properties = ['name', 'population', 'terrain']
+  let output = planetTemplate.replaceAll(/{%RESOURCE_TYPE%}/g, 'planets')
+  output = output.replaceAll(/{%UID%}/g, req.params.planetId)
+  output = output.replaceAll(/{%PROPERTIES%}/g, JSON.stringify(properties))
+  res.status(200).end(output)
+})
+
 app.get('/people', (req, res) => {
   let output = htmlTemplate.replaceAll(/{%RESOURCE_TYPE%}/g, 'people')
   res.status(200).end(output)
 })
 
 app.get('/people/:userId', (req, res) => {
-  console.log(req.params)
+  const properties = ['name', 'birth_year', 'gender', 'eye_color']
   let output = peopleTemplate.replaceAll(/{%RESOURCE_TYPE%}/g, 'people')
+  output = output.replaceAll(/{%PROPERTIES%}/g, JSON.stringify(properties))
   output = output.replaceAll(/{%UID%}/g, req.params.userId)
   res.status(200).end(output)
 })

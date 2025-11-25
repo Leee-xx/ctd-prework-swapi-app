@@ -12,40 +12,41 @@ function buildUrl(uri, params = {}) {
   return url
 }
 
-function callGet(resourceType, uid) {
+function callGet(resourceType, uid, properties = []) {
   let url = buildUrl(`${resourceType}/${uid}`)
-  const properties = ['name', 'birth_year', 'gender', 'eye_color']
-  const tableHead = document.getElementById('table-head')
   const tableBody = document.getElementById('table-body')
   fetch(url)
-    .then(response => resposne.json())
-    .then(resonseJson => {
-      console.log(responseJson.result.properties)
+    .then(response => response.json())
+    .then(responseJson => {
+      const row = document.createElement('tr')
       properties.forEach((prop) => {
-        console.log("prop: ", prop)
-        let th = document.createElement('th')
-        th.innerHTML = prop
-        tableHead.append(th)
-      }
+        const td = document.createElement('td')
+        td.innerHTML = responseJson.result.properties[prop]
+        row.append(td)
+      })
+      tableBody.append(row)
     })
 }
 
 function callSearch(resourceType) {
   const searchTerm = document.getElementById('search').value
   const results = document.getElementById('results')
+  const errorDiv = document.getElementById('error-message')
   results.textContent = ''
-  console.log("Calling API on " + resourceType)
 
   const url = buildUrl(resourceType, { name: searchTerm })
   fetch(url)
     .then(response => response.json())
     .then(responseJson => {
-      console.log(responseJson.result)
-      responseJson.result.forEach((record) => {
-        console.log(record.uid)
-        const textNode = document.createElement('li')
-        textNode.innerHTML = `${record.properties.name} (<a href='${resourceType}/${record.uid}'>details</a>)`
-        results.append(textNode)
-      })
+      if (responseJson.result.length > 0) {
+        responseJson.result.forEach((record) => {
+          const textNode = document.createElement('li')
+          textNode.innerHTML = `${record.properties.name} (<a href='${resourceType}/${record.uid}'>details</a>)`
+          results.append(textNode)
+        })
+      } else {
+        errorDiv.innerHTML = 'No results!'
+        errorDiv.style.visibility = 'visible'
+      }
     })
 }

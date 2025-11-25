@@ -1,0 +1,18 @@
+html {
+  font-family: Arial;
+  padding: 10px;
+}
+
+a {
+  margin: 10px;
+}
+
+a:hover {
+  background-color: yellow;
+}
+
+#error-message {
+  visibility: hidden;
+  color: red;
+  padding: 10px;
+}
