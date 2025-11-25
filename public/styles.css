@@ -1,6 +1,7 @@
 html {
-  font-family: Arial;
+  font-family: verdana;
   padding: 10px;
+  text-align: center;
 }
 
 a {
@@ -15,4 +16,10 @@ a:hover {
   visibility: hidden;
   color: red;
   padding: 10px;
+}
+
+#results {
+  margin-left: auto;
+  margin-right: auto;
+  width: 400px;
 }

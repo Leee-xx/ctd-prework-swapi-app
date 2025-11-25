@@ -40,7 +40,7 @@ function callSearch(resourceType) {
     .then(responseJson => {
       if (responseJson.result.length > 0) {
         responseJson.result.forEach((record) => {
-          const textNode = document.createElement('li')
+          const textNode = document.createElement('p')
           textNode.innerHTML = `${record.properties.name} (<a href='${resourceType}/${record.uid}'>details</a>)`
           results.append(textNode)
         })
