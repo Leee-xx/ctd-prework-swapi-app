@@ -23,3 +23,7 @@ a:hover {
   margin-right: auto;
   width: 400px;
 }
+
+#search {
+  margin-bottom: 6px;
+}

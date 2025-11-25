@@ -14,8 +14,12 @@
 
     <h1>Search for {%RESOURCE_TYPE%}</h1>
     <input type='text' name='search' id='search' placeholder='Search for {%RESOURCE_TYPE%}' />
+    <br />
     <button onclick='callSearch("{%RESOURCE_TYPE%}")'>
       Search for {%RESOURCE_TYPE%}
+    </button>
+    <button onclick='clearSearch()'>
+            Clear
     </button>
     <div id='error-message'>
     </div>
